@@ -1,15 +1,15 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getDeliveries } from 'store/modules/DeliveryStore/creators';
 import useDeliveryStore from 'hooks/useDeliveryStore';
-import { Link } from 'react-router-dom';
+import DeliveryList from 'features/DeliveryList';
 
 interface DeliveryListPageProps {}
 
 const DeliveryListPage: FC<DeliveryListPageProps> = () => {
   const dispatch = useDispatch();
 
-  const { deliveries } = useDeliveryStore();
+  const { deliveries, isLoadingDeliveries } = useDeliveryStore();
 
   useEffect(() => {
     handleFetchingDeliveries();
@@ -18,16 +18,9 @@ const DeliveryListPage: FC<DeliveryListPageProps> = () => {
   const handleFetchingDeliveries = () => dispatch(getDeliveries());
 
   return (
-    <>
-      <h1>delivry DeliveryDetailsPage</h1>
-      {deliveries.map((delivery) => {
-        return (
-          <Link to={`/${delivery.id}`} key={delivery.id}>
-            <div>{delivery.client}</div>
-          </Link>
-        );
-      })}
-    </>
+    <div className='page'>
+      <DeliveryList deliveries={deliveries} loading={isLoadingDeliveries} />
+    </div>
   );
 };
 

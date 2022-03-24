@@ -16,7 +16,7 @@ export const routes: Routes[] = [
     Component: DeliveryListPage,
   },
   {
-    path: '/:id',
+    path: '/deliveryDetails/:id',
     Component: DeliveryDetailsPage,
   },
   {

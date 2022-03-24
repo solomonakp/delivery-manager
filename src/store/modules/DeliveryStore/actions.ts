@@ -17,9 +17,23 @@ export const setUpdatingStatus = (value: boolean): DeliveryStoreTypes => ({
   type: constants.SET_UPDATING_STATUS,
 });
 
+export const setMakingActive = (value: boolean): DeliveryStoreTypes => ({
+  payload: value,
+  type: constants.SET_MAKING_ACTIVE,
+});
+
 export const setDelivery = (value: Delivery): DeliveryStoreTypes => ({
   payload: value,
   type: constants.SET_DELIVERY,
+});
+export const setActive = (value: Delivery): DeliveryStoreTypes => ({
+  payload: value,
+  type: constants.SET_ACTIVE,
+});
+
+export const setUpdatedStatus = (value: Delivery): DeliveryStoreTypes => ({
+  payload: value,
+  type: constants.SET_UPDATED_STATUS,
 });
 
 export const setDeliveries = (value: Deliveries): DeliveryStoreTypes => ({

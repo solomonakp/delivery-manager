@@ -1,7 +1,9 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 
 import { Axios } from 'services/Api/axios';
 import endPoints from 'services/Api/api.constants';
+
+import { AppThunk } from 'store/index';
 
 import { Deliveries, Delivery, DeliveryInfo } from 'types/deliveries.types';
 
@@ -11,13 +13,16 @@ import {
   setDelivery,
   setLoadingDelivery,
   setUpdatingStatus,
+  setMakingActive,
+  setUpdatedStatus,
+  setActive,
 } from './actions';
-import { AppThunk } from 'store/index';
 
 // AppThunk<(1), (2)>
 // (1) The return value of the internal async function that will be returned by this thunk
 // (2) The type of data being fired in the last action
 
+// gets all deliveries
 export const getDeliveries = (): AppThunk<
   Promise<Deliveries | void>,
   Deliveries
@@ -28,17 +33,17 @@ export const getDeliveries = (): AppThunk<
     return Axios.get(endPoints.deliveries)
       .then(({ data }: AxiosResponse<Deliveries>) => {
         dispatch(setDeliveries(data));
-        console.log(data, 'deliveries');
       })
       .then(() => {
         dispatch(setLoadingDeliveries(false));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((err: AxiosError) => {
+        alert(err.response?.data?.message);
       });
   };
 };
 
+// gets delivery details
 export const getDelivery = (
   id: string
 ): AppThunk<Promise<Delivery | void>, Delivery> => {
@@ -47,22 +52,23 @@ export const getDelivery = (
     return Axios.get(`${endPoints.deliveries}/${id}`)
       .then(({ data }: AxiosResponse<Delivery>) => {
         dispatch(setDelivery(data));
-        console.log(data, 'delivery');
       })
       .then(() => {
         dispatch(setLoadingDelivery(false));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((err: AxiosError) => {
+        alert(err.response?.data?.message);
       });
   };
 };
 
+// updates the delivery status of a delivery
 export const upDateDeliveryStatus = (
   id: string,
   values: DeliveryInfo
 ): AppThunk<Promise<Delivery | void>, Delivery> => {
   const postData = {
+    active: false,
     delivery: values,
   };
 
@@ -70,14 +76,36 @@ export const upDateDeliveryStatus = (
     dispatch(setUpdatingStatus(true));
     return Axios.put(`${endPoints.deliveries}/${id}`, postData)
       .then(({ data }: AxiosResponse<Delivery>) => {
-        // dispatch(setDelivery());
-        console.log(data, 'updated');
+        dispatch(setUpdatedStatus(data));
       })
       .then(() => {
-        dispatch(setUpdatingStatus(true));
+        dispatch(setUpdatingStatus(false));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((err: AxiosError) => {
+        alert(err.response?.data?.message);
+      });
+  };
+};
+
+// makes a delivery the current active delivery
+export const makeActive = (
+  id: string
+): AppThunk<Promise<Delivery | void>, Delivery> => {
+  const postData = {
+    active: true,
+  };
+
+  return (dispatch) => {
+    dispatch(setMakingActive(true));
+    return Axios.put(`${endPoints.deliveries}/${id}`, postData)
+      .then(({ data }: AxiosResponse<Delivery>) => {
+        dispatch(setActive(data));
+      })
+      .then(() => {
+        dispatch(setMakingActive(false));
+      })
+      .catch((err: AxiosError) => {
+        alert(err.response?.data?.message);
       });
   };
 };

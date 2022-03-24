@@ -1,4 +1,5 @@
 import { DeliveryStoreTypes, State } from './types';
+import { checkActive } from 'utils/helpers/delivery.helpers';
 
 export const initialState: State = {
   deliveries: [],
@@ -6,6 +7,9 @@ export const initialState: State = {
   isLoadingDelivery: false,
   isLoadingDeliveries: false,
   isUpdatingStatus: false,
+  isMakingActive: false,
+  hasActive: false,
+  currentActive: null,
 };
 
 const DeliveryReducer = (
@@ -29,16 +33,38 @@ const DeliveryReducer = (
         ...state,
         isUpdatingStatus: action.payload,
       };
+
+    case 'SET_MAKING_ACTIVE':
+      return {
+        ...state,
+        isMakingActive: action.payload,
+      };
     case 'SET_DELIVERIES':
       return {
         ...state,
         deliveries: action.payload,
+        hasActive: action.payload.some(checkActive),
+        currentActive: action.payload.find(checkActive) || null,
       };
 
     case 'SET_DELIVERY':
       return {
         ...state,
         delivery: action.payload,
+      };
+    case 'SET_ACTIVE':
+      return {
+        ...state,
+        delivery: action.payload,
+        hasActive: true,
+        currentActive: action.payload,
+      };
+    case 'SET_UPDATED_STATUS':
+      return {
+        ...state,
+        delivery: action.payload,
+        hasActive: false,
+        currentActive: null,
       };
     case 'CLEAR_DELIVERY':
       return {

@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# Delivery Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React MVP to handle delivery management.
 
-## Available Scripts
+![screenshot](./public/delivery-manager.png)
 
-In the project directory, you can run:
+The Delivery Manager is a React Based Application that manages delivery of goods to various customers by various clients. It is very dynamic as it is connected to an Api endpoint and data is passed to the `DeliveryList` component using the `deliveries` props. Api calls are made in the `getDeliveries`, `getDelivery`, `makeActive` and `updatingDelivery` async actions using redux.
 
-### `npm start`
+&nbsp;
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- ✔️ List Deliveries
+- ✔️ Update Delivery Details
+- ✔️ Activate Delivery,
+- ✔️ Page Routing,
+- ✔️ Update Delivery Status
 
-### `npm test`
+&nbsp;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Built With
 
-### `npm run build`
+- JavaScript, TypeScript, React
+- Hooks, Redux, Redux thunk.
+- TailWindCss, Css modules.
+- Jest, React-testing-library, Jest-axe.
+- Axios
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+&nbsp;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Live Demo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Live Demo Link](#)
 
-### `npm run eject`
+&nbsp;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To get a local copy up and running follow these simple example steps.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Prerequisites
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To run this project, you will need to have `node`,`npm` or `yarn`, `TypeScript` already installed locally
 
-## Learn More
+### Setup
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`Clone the project and cd into the directory`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Install
+
+run `npm install` or `yarn install` to install all the dependencies of the project
+
+### Usage
+
+run `npm start` or `yarn start` to get the project running
+
+open browser and navigate to `http://localhost:3000/`
+
+&nbsp;
+
+### Customizations
+
+The styles are written using TailWindCss.
+
+To tweak react components navigate to `/src/components`
+
+To access application theming navigate to `tailwind.config.js`
+
+To access global styles navigate to `/src/styles/index.css`
+
+See [tailwindCss](https://tailwindcss.com/docs/theme) documentation for how to theme and tweak relevant styles
+
+&nbsp;
+
+## Tests
+
+Mostly Integration are written.
+
+To access tests n react navigate to `/src/__test__`
+
+### Running Tests
+
+run `npm test` or `yarn test` to get the tests running
+
+#### Analysis report
+
+&nbsp;
+
+## Deployment
+
+run `npm build` or `yarn build` to generate build folder. You can now serve the build folder on any static server. for more information visit [https://create-react-app.dev/docs/deployment/](https://create-react-app.dev/docs/deployment/).
+
+&nbsp;
+
+## Authors
+
+👤 **Author**
+
+- Github: [solomonakp](https://github.com/solomonakp)
+- twitter: [@dev_chuck](https://twitter.com/dev_chuck)
+
+&nbsp;
+
+## 📝 License
+
+This project is [MIT](lic.url) licensed.
