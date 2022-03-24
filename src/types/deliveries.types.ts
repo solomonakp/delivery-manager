@@ -1,3 +1,7 @@
+export type DeliveryStatus = 'delivered' | 'undelivered';
+export type Status = DeliveryStatus | 'idle';
+export type Deliveries = Delivery[];
+
 export interface Delivery {
   id: string;
   client: string;
@@ -10,18 +14,19 @@ export interface Delivery {
     longitude: string;
   };
   delivery: {
-    status: 'idle' | 'delivered' | 'undelivered';
+    status: Status;
     latitude: number;
     longitude: number;
   };
+  active?: boolean;
+}
+
+export interface DeliveryInfo {
+  status: DeliveryStatus;
+  latitude: number;
+  longitude: number;
 }
 
 export interface DeliveryStatusResponse {
-  delivery: {
-    status: 'delivered' | 'undelivered';
-    latitude: number;
-    longitude: number;
-  };
+  delivery: DeliveryInfo;
 }
-
-export type Deliveries = Delivery[];
