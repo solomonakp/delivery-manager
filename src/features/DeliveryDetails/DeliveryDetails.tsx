@@ -36,7 +36,7 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
     let target = e.currentTarget;
     let status: DeliveryStatus = 'delivered';
 
-    if (target.textContent === 'undelivered') {
+    if (target.textContent?.trim().toLocaleLowerCase() === 'undelivered') {
       status = 'undelivered';
     }
     const data = {
@@ -51,10 +51,12 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
   const handleMakeActive = (e: MouseEvent<HTMLButtonElement>) =>
     dispatch(makeActive(id!));
 
+  // handles display of make active button
   const isDisable = Boolean(
     delivery?.delivery.status === 'delivered' || hasActive
   );
 
+  //  handles  display of  deliver and undeliver buttons
   const isCurrentActive = Boolean(currentActive?.id === delivery?.id);
 
   return (

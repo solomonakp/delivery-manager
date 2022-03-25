@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import DeliveryCard from 'components/DeliveryCard';
 import { Deliveries } from 'types/deliveries.types';

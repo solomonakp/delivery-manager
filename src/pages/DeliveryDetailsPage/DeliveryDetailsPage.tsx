@@ -27,6 +27,7 @@ const DeliveryDetailsPage: FC<DeliveryDetailsPageProps> = () => {
   }, []);
 
   const handleFetchingDelivery = () => dispatch(getDelivery(id!));
+
   const handleClearDelivery = () => dispatch(clearDelivery());
 
   return (
