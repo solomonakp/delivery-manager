@@ -2,7 +2,7 @@
 
 A React MVP to handle delivery management.
 
-![screenshot](./public/delivery-manager.png)
+![screenshot](./public/deliveryManager.png)
 
 The Delivery Manager is a React Based Application that manages delivery of goods to various customers by various clients. It is very dynamic as it is connected to an Api endpoint and data is passed to the `DeliveryList` component using the `deliveries` props. Api calls are made in the `getDeliveries`, `getDelivery`, `makeActive` and `updatingDelivery` async actions using redux.
 
