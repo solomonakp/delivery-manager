@@ -10,7 +10,6 @@ import {
   makeActive,
   upDateDeliveryStatus,
 } from 'store/modules/DeliveryStore/creators';
-import withLoader from 'hocs/withLoading';
 
 interface DeliveryDetailsProps {}
 
@@ -29,7 +28,8 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
     hasActive,
     currentActive,
     isMakingActive,
-    isUpdatingStatus,
+    isSettingDelivered,
+    isSettingUndelivered,
   } = useDeliveryStore();
 
   const handleStatusUpdate = (e: MouseEvent<HTMLButtonElement>) => {
@@ -67,6 +67,9 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
           onClick={handleMakeActive}
           disabled={isDisable}
           loading={isMakingActive}
+          title='make active button'
+          role='button'
+          type='button'
         >
           make active
         </Button>
@@ -76,14 +79,28 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
 
       {isCurrentActive && (
         <div className='flex mb-6 justify-between items-center'>
-          <Button onClick={handleStatusUpdate} loading={isUpdatingStatus}>
+          <Button
+            onClick={handleStatusUpdate}
+            loading={isSettingDelivered}
+            title='delivered button'
+            role='button'
+            type='button'
+          >
             delivered
           </Button>
-          <Button onClick={handleStatusUpdate}>undelivered</Button>
+          <Button
+            onClick={handleStatusUpdate}
+            title='undelivered button'
+            loading={isSettingUndelivered}
+            role='button'
+            type='button'
+          >
+            undelivered
+          </Button>
         </div>
       )}
     </div>
   );
 };
 
-export default withLoader(DeliveryDetails);
+export default DeliveryDetails;

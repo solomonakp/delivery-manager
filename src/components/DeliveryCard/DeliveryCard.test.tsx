@@ -1,14 +1,42 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import '@testing-library/jest-dom/extend-expect';
 import DeliveryCard from './DeliveryCard';
+import { BuildDelivery } from 'utils/helpers/test.helpers';
 
-// describe('<DeliveryCard />', () => {
-//   test('it should mount', () => {
-//     render(<DeliveryCard  />);
+const defaultProps = {
+  delivery: BuildDelivery(),
+};
 
-//     const deliveryCard = screen.getByTestId('DeliveryCard');
+afterEach(cleanup);
 
-//     expect(deliveryCard).toBeInTheDocument();
-//   });
-// });
+const setUpDeliveryCard = (props = defaultProps) =>
+  render(<DeliveryCard {...props} />);
+
+describe('<DeliveryCard />', () => {
+  test('it should mount', () => {
+    setUpDeliveryCard();
+
+    const deliveryCard = screen.getByTestId('DeliveryCard');
+
+    expect(deliveryCard).toBeInTheDocument();
+  });
+
+  test('should display delivery details', () => {
+    const {
+      delivery: { client },
+    } = defaultProps;
+
+    setUpDeliveryCard();
+
+    expect(screen.getByText(client)).toBeInTheDocument();
+  });
+  test.skip('should not fail any accessibility test', async () => {
+    const { container } = setUpDeliveryCard();
+
+    const result = await axe(container);
+
+    expect(result).toHaveNoViolations();
+  });
+});

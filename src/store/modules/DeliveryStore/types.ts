@@ -11,9 +11,14 @@ interface SetLoadingDelivery {
   type: typeof actions.SET_LOADING_DELIVERY;
 }
 
-interface SetUpdatingStatus {
+interface SetDeliveredStatus {
   payload: boolean;
-  type: typeof actions.SET_UPDATING_STATUS;
+  type: typeof actions.SET_DELIVERED_STATUS;
+}
+
+interface SetUndeliveredStatus {
+  payload: boolean;
+  type: typeof actions.SET_UNDELIVERED_STATUS;
 }
 
 interface SetMakingActive {
@@ -51,7 +56,8 @@ export interface State {
   isLoadingDeliveries: boolean;
   isLoadingDelivery: boolean;
   delivery: Delivery | null;
-  isUpdatingStatus: boolean;
+  isSettingUndelivered: boolean;
+  isSettingDelivered: boolean;
   isMakingActive: boolean;
   hasActive: boolean;
   currentActive: Delivery | null;
@@ -60,7 +66,8 @@ export interface State {
 export type DeliveryStoreTypes =
   | SetLoadingDeliveries
   | SetLoadingDelivery
-  | SetUpdatingStatus
+  | SetDeliveredStatus
+  | SetUndeliveredStatus
   | SetDelivery
   | SetDeliveries
   | ClearDelivery

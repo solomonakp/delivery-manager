@@ -9,18 +9,11 @@ export interface ButtonProps
       HTMLButtonElement
     >,
     React.AriaAttributes {
-  color?: color;
   loading?: boolean;
 }
 
 const Button: FC<ButtonProps> = (props) => {
-  const {
-    children,
-    className,
-    color = 'primary',
-    loading = false,
-    ...rest
-  } = props;
+  const { children, className, loading = false, ...rest } = props;
 
   return (
     <button className={`${className} btn`} {...rest}>

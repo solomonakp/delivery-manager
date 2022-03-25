@@ -1,14 +1,38 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import '@testing-library/jest-dom/extend-expect';
+import { MemoryRouter } from 'react-router-dom';
+import { BuildDelivery } from 'utils/helpers/test.helpers';
 import DeliveryList from './DeliveryList';
 
-// describe('<DeliveryList />', () => {
-//   test('it should mount', () => {
-//     render(<DeliveryList />);
+const defaultProps = {
+  deliveries: [BuildDelivery(), BuildDelivery(), BuildDelivery()],
+};
 
-//     const deliveryList = screen.getByTestId('DeliveryList');
+afterEach(cleanup);
 
-//     expect(deliveryList).toBeInTheDocument();
-//   });
-// });
+const setUpDeliveryList = (props = defaultProps) =>
+  render(
+    <MemoryRouter>
+      <DeliveryList {...props} />
+    </MemoryRouter>
+  );
+
+describe('<DeliveryList />', () => {
+  test('should renders a  delivery cards for each delivery passed to it', () => {
+    const { deliveries } = defaultProps;
+
+    setUpDeliveryList();
+
+    const deliveryList = screen.getAllByTestId('DeliveryCard');
+
+    expect(deliveryList).toHaveLength(deliveries.length);
+  });
+  test.skip('should not fail any accessibility test', async () => {
+    const { container } = setUpDeliveryList();
+
+    const result = await axe(container);
+
+    expect(result).toHaveNoViolations();
+  });
+});

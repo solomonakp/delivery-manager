@@ -6,7 +6,8 @@ export const initialState: State = {
   delivery: null,
   isLoadingDelivery: false,
   isLoadingDeliveries: false,
-  isUpdatingStatus: false,
+  isSettingUndelivered: false,
+  isSettingDelivered: false,
   isMakingActive: false,
   hasActive: false,
   currentActive: null,
@@ -28,10 +29,15 @@ const DeliveryReducer = (
         isLoadingDelivery: action.payload,
       };
 
-    case 'SET_UPDATING_STATUS':
+    case 'SET_UNDELIVERED_STATUS':
       return {
         ...state,
-        isUpdatingStatus: action.payload,
+        isSettingUndelivered: action.payload,
+      };
+    case 'SET_DELIVERED_STATUS':
+      return {
+        ...state,
+        isSettingDelivered: action.payload,
       };
 
     case 'SET_MAKING_ACTIVE':

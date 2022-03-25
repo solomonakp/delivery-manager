@@ -6,13 +6,13 @@ import endPoints from 'services/Api/api.constants';
 import { AppThunk } from 'store/index';
 
 import { Deliveries, Delivery, DeliveryInfo } from 'types/deliveries.types';
+import { setDeliveredStatus, setUndeliveredStatus } from './actions';
 
 import {
   setLoadingDeliveries,
   setDeliveries,
   setDelivery,
   setLoadingDelivery,
-  setUpdatingStatus,
   setMakingActive,
   setUpdatedStatus,
   setActive,
@@ -34,11 +34,11 @@ export const getDeliveries = (): AppThunk<
       .then(({ data }: AxiosResponse<Deliveries>) => {
         dispatch(setDeliveries(data));
       })
-      .then(() => {
-        dispatch(setLoadingDeliveries(false));
-      })
       .catch((err: AxiosError) => {
         alert(err.response?.data?.message);
+      })
+      .finally(() => {
+        dispatch(setLoadingDeliveries(false));
       });
   };
 };
@@ -53,11 +53,11 @@ export const getDelivery = (
       .then(({ data }: AxiosResponse<Delivery>) => {
         dispatch(setDelivery(data));
       })
-      .then(() => {
-        dispatch(setLoadingDelivery(false));
-      })
       .catch((err: AxiosError) => {
         alert(err.response?.data?.message);
+      })
+      .finally(() => {
+        dispatch(setLoadingDelivery(false));
       });
   };
 };
@@ -72,17 +72,28 @@ export const upDateDeliveryStatus = (
     delivery: values,
   };
 
+  const { status } = values;
+
   return (dispatch) => {
-    dispatch(setUpdatingStatus(true));
+    if (status === 'delivered') {
+      dispatch(setDeliveredStatus(true));
+    } else {
+      dispatch(setUndeliveredStatus(true));
+    }
+
     return Axios.put(`${endPoints.deliveries}/${id}`, postData)
       .then(({ data }: AxiosResponse<Delivery>) => {
         dispatch(setUpdatedStatus(data));
       })
-      .then(() => {
-        dispatch(setUpdatingStatus(false));
-      })
       .catch((err: AxiosError) => {
         alert(err.response?.data?.message);
+      })
+      .finally(() => {
+        if (status === 'delivered') {
+          dispatch(setDeliveredStatus(false));
+        } else {
+          dispatch(setUndeliveredStatus(false));
+        }
       });
   };
 };
@@ -101,11 +112,11 @@ export const makeActive = (
       .then(({ data }: AxiosResponse<Delivery>) => {
         dispatch(setActive(data));
       })
-      .then(() => {
-        dispatch(setMakingActive(false));
-      })
       .catch((err: AxiosError) => {
         alert(err.response?.data?.message);
+      })
+      .finally(() => {
+        dispatch(setMakingActive(false));
       });
   };
 };

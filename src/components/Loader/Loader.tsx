@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './Loader.module.css';
 
-interface LoaderProps {
+export interface LoaderProps {
   type?: 1 | 2;
   fixed?: boolean;
   className?: string;

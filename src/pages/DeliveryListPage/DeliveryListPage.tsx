@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import { getDeliveries } from 'store/modules/DeliveryStore/creators';
 import useDeliveryStore from 'hooks/useDeliveryStore';
 import DeliveryList from 'features/DeliveryList';
+import withLoader from 'hocs/withLoading';
+
+const DeliveryListWithLoader = withLoader(DeliveryList);
 
 interface DeliveryListPageProps {}
 
@@ -19,7 +22,10 @@ const DeliveryListPage: FC<DeliveryListPageProps> = () => {
 
   return (
     <div className='page'>
-      <DeliveryList deliveries={deliveries} loading={isLoadingDeliveries} />
+      <DeliveryListWithLoader
+        deliveries={deliveries}
+        loading={isLoadingDeliveries}
+      />
     </div>
   );
 };

@@ -5,8 +5,11 @@ import DeliveryDetails from 'features/DeliveryDetails';
 import { getDelivery } from 'store/modules/DeliveryStore/creators';
 import { clearDelivery } from 'store/modules/DeliveryStore/actions';
 import useDeliveryStore from 'hooks/useDeliveryStore';
+import withLoader from 'hocs/withLoading';
 
 interface DeliveryDetailsPageProps {}
+
+const WithDeliveryDetail = withLoader(DeliveryDetails);
 
 const DeliveryDetailsPage: FC<DeliveryDetailsPageProps> = () => {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const DeliveryDetailsPage: FC<DeliveryDetailsPageProps> = () => {
 
   return (
     <div className='page'>
-      <DeliveryDetails loading={isLoadingDelivery} />
+      <WithDeliveryDetail loading={isLoadingDelivery} />
     </div>
   );
 };

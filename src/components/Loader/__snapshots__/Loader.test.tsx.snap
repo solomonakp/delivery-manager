@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loader /> should render the Loader user would see 1`] = `
+<DocumentFragment>
+  <div
+    class="loaderContainer undefined "
+    data-testid="loader"
+  >
+    <div
+      class="ldsRoller bg"
+    >
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+      <div
+        class="after-color-1"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
