@@ -30,7 +30,7 @@ The Delivery Manager is a React Based Application that manages delivery of goods
 
 ## Live Demo
 
-[Live Demo Link](#)
+[Live Demo Link](https://delivery-manager.vercel.app/)
 
 &nbsp;
 
