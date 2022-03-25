@@ -33,7 +33,7 @@ describe('<DeliveryInfo />', () => {
 
     expect(screen.getByText(city)).toBeInTheDocument();
   });
-  test.skip('should not fail any accessibility test', async () => {
+  test('should not fail any accessibility test', async () => {
     const { container } = setUpDeliveryInfo();
 
     const result = await axe(container);

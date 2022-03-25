@@ -32,7 +32,7 @@ describe('<DeliveryCard />', () => {
 
     expect(screen.getByText(client)).toBeInTheDocument();
   });
-  test.skip('should not fail any accessibility test', async () => {
+  test('should not fail any accessibility test', async () => {
     const { container } = setUpDeliveryCard();
 
     const result = await axe(container);

@@ -52,7 +52,7 @@ describe('<Button />', () => {
 
     expect(await screen.findByTestId(/loader/i)).toBeInTheDocument();
   });
-  test.skip('should not fail any accessibility test', async () => {
+  test('should not fail any accessibility test', async () => {
     const { container } = setUpButton();
 
     const result = await axe(container);

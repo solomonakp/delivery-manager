@@ -18,15 +18,11 @@ import {
   setActive,
 } from './actions';
 
-// AppThunk<(1), (2)>
+// AppThunk<(1)>
 // (1) The return value of the internal async function that will be returned by this thunk
-// (2) The type of data being fired in the last action
 
 // gets all deliveries
-export const getDeliveries = (): AppThunk<
-  Promise<Deliveries | void>,
-  Deliveries
-> => {
+export const getDeliveries = (): AppThunk<Promise<Deliveries | void>> => {
   return (dispatch) => {
     dispatch(setLoadingDeliveries(true));
 
@@ -44,11 +40,28 @@ export const getDeliveries = (): AppThunk<
 };
 
 // gets delivery details
-export const getDelivery = (
-  id: string
-): AppThunk<Promise<Delivery | void>, Delivery> => {
-  return (dispatch) => {
+export const getDelivery = (id: string): AppThunk<Promise<Delivery | void>> => {
+  return async (dispatch, getState) => {
     dispatch(setLoadingDelivery(true));
+
+    // find if there is an active product already  if page is refreshed or state is lost
+    const {
+      deliveryStore: { deliveries },
+    } = getState();
+
+    if (deliveries.length === 0) {
+      await Axios.get(endPoints.deliveries)
+        .then(({ data }: AxiosResponse<Deliveries>) => {
+          dispatch(setDeliveries(data));
+        })
+        .catch((err: AxiosError) => {
+          alert(err.response?.data?.message);
+        })
+        .finally(() => {
+          dispatch(setLoadingDeliveries(false));
+        });
+    }
+
     return Axios.get(`${endPoints.deliveries}/${id}`)
       .then(({ data }: AxiosResponse<Delivery>) => {
         dispatch(setDelivery(data));

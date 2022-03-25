@@ -63,16 +63,15 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
         <h1 className='my-5 font-bold text-3xl sm:text-4xl '>
           Deliveries Details
         </h1>
-        <Button
-          onClick={handleMakeActive}
-          disabled={isDisable}
-          loading={isMakingActive}
-          title='make active button'
-          role='button'
-          type='button'
-        >
-          make active
-        </Button>
+        {!isDisable && (
+          <Button
+            onClick={handleMakeActive}
+            loading={isMakingActive}
+            title='make active button'
+          >
+            make active
+          </Button>
+        )}
       </div>
 
       {delivery && <DeliveryInfo delivery={delivery} />}
@@ -83,8 +82,6 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
             onClick={handleStatusUpdate}
             loading={isSettingDelivered}
             title='delivered button'
-            role='button'
-            type='button'
           >
             delivered
           </Button>
@@ -92,8 +89,6 @@ const DeliveryDetails: FC<DeliveryDetailsProps> = () => {
             onClick={handleStatusUpdate}
             title='undelivered button'
             loading={isSettingUndelivered}
-            role='button'
-            type='button'
           >
             undelivered
           </Button>
